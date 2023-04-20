@@ -11,7 +11,6 @@ import (
 	"os/signal"
 	"sync"
 	"syscall"
-	"time"
 )
 
 type Data struct {
@@ -71,7 +70,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	t := time.Now()
 	resultC := make(chan int64)
 	jobC := make(chan Job, jobQueueSize)
 
@@ -112,7 +110,7 @@ func main() {
 	for s := range resultC {
 		sum += s
 	}
-	fmt.Println("Sum:", sum, "Time:", time.Since(t))
+	fmt.Println("Sum:", sum)
 }
 
 func initGracefulShutDown(cancel context.CancelFunc) {
